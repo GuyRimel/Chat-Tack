@@ -1,3 +1,4 @@
+#Chat-Tack
 Title: Chat Tack
 Created by: Guy Rimel 2/15/2023
 Tech-Stack and Dev-Stack: React-Native, JSX, Expo, Android Studio 
