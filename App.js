@@ -1,20 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ScrollView } from "react-native";
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const Tabs = createBottomTabNavigator();
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+// CREATED COMPONENTS //////////
+import Start from './components/Start';
+import Chat from './components/Chat';
 
 const styles = StyleSheet.create({
-  container: {
+  flexColumnContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column"
   },
+  flexItem20: {
+    backgroundColor: '#abf',
+    flex: 8
+  },
+  flexItem50: {
+    backgroundColor: '#fed',
+    flex: 62
+  },
+  flexItem30: {
+    backgroundColor: '#afb',
+    flex: 30
+  },
+
 });
+
+export default class App extends React.Component  {
+  constructor(props) {
+    super(props);
+    this.state = { text: '' };
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Tab.Navigator initialRouteName="Start">
+          <Tab.Screen
+            name="Start"
+            component={Start}
+          />
+          <Tab.Screen
+            name="Chat"
+            component={Chat}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
