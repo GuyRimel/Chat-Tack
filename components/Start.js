@@ -9,95 +9,92 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const backgroundColors = {
-  gray: { backgroundColor: "hsl(0, 0%, 60%)" },
-  red: { backgroundColor: "hsl(6, 40%, 60%)" },
-  green: { backgroundColor: "hsl(86, 40%, 60%)" },
-  blue: { backgroundColor: "hsl(206, 40%, 60%)" },
-  violet: { backgroundColor: "hsl(246, 40%, 60%)" },
+const bgColors = {
+  black: { backgroundColor: "#000000" },
+  gray: { backgroundColor: "#8a95a5" },
+  purple: { backgroundColor: "#474056" },
+  green: { backgroundColor: "#94ae89" },
 };
 
 export default class Start extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', color: '' };
-  }
-  
+    this.state = { name: "", color: "" };
+  }r
   render() {
-    const { red, green, blue, violet } = backgroundColors;
+    const { black, gray, purple, green } = bgColors;
     return (
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/stone-wall.jpg")}
-          style={[styles.container, styles.flexColumnCentered]}
+          source={require("../assets/bg-image.png")}
+          style={[styles.container, styles.columnEvenlyCenter]}
         >
-          <Text style={styles.title}>Chat-Tack</Text>
+          <Text style={styles.title}>Chat Tack</Text>
 
-          <View style={styles.inputContainer}>
+          <View style={styles.nameInput__container}>
             <TextInput
-              style={[styles.nameInput, {borderColor: this.state.color}]}
+              style={styles.nameInput__input}
               onChangeText={(name) => this.setState({ name })}
               value={this.state.name}
               placeholder="Enter your Name"
             />
 
             <View>
-              <Text style={styles.textDarkCenter}>Choose your Background:</Text>
-              <View style={styles.flexRow}>
-                <Text
+              <Text style={styles.colorSelect__text}>Choose your Background:</Text>
+              <View style={styles.colorSelect__dotsWrapper}>
+                <TouchableOpacity
                   style={[
-                    styles.colorDot,
-                    red,
-                    this.state.color === red.backgroundColor
-                      ? styles.colorSelected
+                    styles.colorSelect__dot,
+                    black,
+                    this.state.color === black.backgroundColor
+                      ? styles.colorSelect__dotSelected
                       : {},
                   ]}
                   onPress={() =>
-                    this.setState({ color: red.backgroundColor })
+                    this.setState({ color: black.backgroundColor })
                   }
                 />
 
-                <Text
+                <TouchableOpacity
                   style={[
-                    styles.colorDot,
+                    styles.colorSelect__dot,
+                    gray,
+                    this.state.color === gray.backgroundColor
+                      ? styles.colorSelect__dotSelected
+                      : {},
+                  ]}
+                  onPress={() => this.setState({ color: gray.backgroundColor })}
+                />
+
+                <TouchableOpacity
+                  style={[
+                    styles.colorSelect__dot,
+                    purple,
+                    this.state.color === purple.backgroundColor
+                      ? styles.colorSelect__dotSelected
+                      : {},
+                  ]}
+                  onPress={() =>
+                    this.setState({ color: purple.backgroundColor })
+                  }
+                />
+
+                <TouchableOpacity
+                  style={[
+                    styles.colorSelect__dot,
                     green,
                     this.state.color === green.backgroundColor
-                      ? styles.colorSelected
-                      : {},
-                  ]}
-                  onPress={() => this.setState({ color: green.backgroundColor })}
-                />
-
-                <Text
-                  style={[
-                    styles.colorDot,
-                    blue,
-                    this.state.color === blue.backgroundColor
-                      ? styles.colorSelected
+                      ? styles.colorSelect__dotSelected
                       : {},
                   ]}
                   onPress={() =>
-                    this.setState({ color: blue.backgroundColor })
-                  }
-                />
-
-                <Text
-                  style={[
-                    styles.colorDot,
-                    violet,
-                    this.state.color === violet.backgroundColor
-                      ? styles.colorSelected
-                      : {},
-                  ]}
-                  onPress={() =>
-                    this.setState({ color: violet.backgroundColor })
+                    this.setState({ color: green.backgroundColor })
                   }
                 />
               </View>
             </View>
             <TouchableOpacity
-              style={[styles.bigButton, styles.w90, {backgroundColor: this.state.color}]}
-              // title='Go to Chat'
+              style={[styles.nameInput__input, styles.fauxButton]}
               onPress={() =>
                 this.props.navigation.navigate("Chat", {
                   name: this.state.name,
@@ -105,8 +102,10 @@ export default class Start extends React.Component {
                 })
               }
             >
-              <Text>
-                Chat it Up!
+              <Text
+                style={[styles.colorSelect__text, styles.fauxButton__text]}
+              >
+                Start Chatting
               </Text>
             </TouchableOpacity>
           </View>
@@ -121,68 +120,72 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  flexColumnCentered: {
+  columnEvenlyCenter: {
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 
   title: {
     color: "#fff",
-    fontSize: 50,
+    fontSize: 45,
     fontWeight: "600",
-    marginBottom: 30,
-    textShadowColor: '#000',
-    textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 10
+    margin: 45
   },
 
-  inputContainer: {
+  nameInput__container: {
     backgroundColor: "#fff",
     marginBottom: 15,
     height: "44%",
-    width: "90%",
+    width: "88%",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     paddingVertical: 20,
   },
 
-  nameInput: {
-    borderColor: "#777",
+  nameInput__input: {
+    height: 50,
+    width: "88%",
+    borderColor: "gray",
     borderWidth: 1,
-    width: "90%",
-    height: 40
+    color: "#757083",
+    opacity: 50,
+    fontSize: 16,
+    fontWeight: "300",
   },
 
-  textDarkCenter: {
+  colorSelect__text: {
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "400",
-    color: "#555",
+    fontWeight: "300",
+    color: "#757083",
     opacity: 100,
   },
 
-  flexRow: {
-    display: "flex",
-    flexDirection: "row"
+  colorSelect__dotsWrapper: {
+    flexDirection: "row",
   },
 
-  colorDot: {
+  colorSelect__dot: {
     width: 40,
     height: 40,
     borderRadius: 20,
     margin: 10,
   },
+  
+    colorSelect__dotSelected: {
+      borderStyle: "solid",
+      borderWidth: 2,
+      borderColor: "#5f5f5f",
+    },
 
-  colorSelected: {
-    borderWidth: 2,
-    borderColor: "#333",
+  fauxButton: {
+    backgroundColor: "#757083",
+    justifyContent: "center",
   },
 
-  bigButton: {
-    padding: 20,
-    color: "#fff"
+  fauxButton__text: {
+    color: "#fff",
+    fontWeight: "300",
   },
-
-  w90: { width: '90%' }
 });
