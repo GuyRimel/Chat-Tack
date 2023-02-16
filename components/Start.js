@@ -31,7 +31,7 @@ export default class Start extends React.Component {
       >
         <Text style={styles.title}>Chat Tack</Text>
 
-        <View style={styles.nameInput__container}>
+        <View style={[styles.nameInput__container, styles.columnEvenlyCenter]}>
           <TextInput
             style={styles.nameInput__input}
             onChangeText={(name) => this.setState({ name })}
@@ -114,33 +114,29 @@ const styles = StyleSheet.create({
   },
 
   columnEvenlyCenter: {
+    display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-    minHeight: 50,
   },
 
   title: {
     color: "#fff",
     fontSize: 45,
     fontWeight: "600",
-    margin: 45,
   },
 
   nameInput__container: {
     backgroundColor: "#fff",
-    padding: 15,
     height: "44%",
+    minHeight: 200,
     width: "88%",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingVertical: 20,
   },
 
   nameInput__input: {
     height: 50,
     width: "88%",
-    padding: 15,
+    paddingLeft: 20,
     borderColor: "gray",
     borderWidth: 1,
     color: "#757083",
@@ -150,7 +146,7 @@ const styles = StyleSheet.create({
   },
 
   colorSelect: {
-    height: 200
+    height: 75,
   },
 
   colorSelect__text: {
@@ -163,13 +159,12 @@ const styles = StyleSheet.create({
 
   colorSelect__dotsWrapper: {
     flexDirection: "row",
-    height: 50,
   },
 
   colorSelect__dot: {
     width: 40,
     height: 40,
-    borderRadius: "50%",
+    borderRadius: 20,
     margin: 10,
   },
 
@@ -182,10 +177,12 @@ const styles = StyleSheet.create({
   fauxButton: {
     backgroundColor: "#757083",
     justifyContent: "center",
+    width: "88%",
+    padding: 16,
   },
 
   fauxButton__text: {
     color: "#fff",
-    fontWeight: "300",
+    fontWeight: "600",
   },
 });

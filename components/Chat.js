@@ -10,7 +10,7 @@ export default class Chat extends React.Component {
     super();
     this.state = {};
   }
-  
+
   componentDidMount() {
     // the screen title becomes the name passed from Start.js
     let name = this.props.route.params.name;
@@ -23,7 +23,7 @@ export default class Chat extends React.Component {
     let name = this.props.route.params.name;
     return (
       <View style={[styles.container, { backgroundColor: color }]}>
-        <Text>
+        <Text style={styles.p20}>
           Hello Chat screen! Your name is {name + " "}
           and you chose the color: "{color}"
         </Text>
@@ -36,4 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
+  p20: { padding: 20 }
 });
