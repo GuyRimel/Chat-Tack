@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+// an object of objects. When referenced in a "style" attribute, the backgroundColor is applied!
 const bgColors = {
   black: { backgroundColor: "#000000" },
   gray: { backgroundColor: "#8a95a5" },
@@ -19,10 +20,14 @@ const bgColors = {
 export default class Start extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", color: "" };
+    this.state = {
+      name: "",
+      bgColor: ""
+    };
   }
 
   render() {
+    // black = bgColors.black i.e., { backgroundColor: "#000000" }
     const { black, gray, purple, green } = bgColors;
     return (
       <ImageBackground
@@ -34,7 +39,7 @@ export default class Start extends React.Component {
         <View style={[styles.nameInput__container, styles.columnEvenlyCenter]}>
           <TextInput
             style={styles.nameInput__input}
-            onChangeText={(name) => this.setState({ name })}
+            onChangeText={(name) => this.setState({ name })} // state.name is the user's input value
             value={this.state.name}
             placeholder="Enter your Name"
           />
@@ -52,7 +57,7 @@ export default class Start extends React.Component {
                     ? styles.colorSelect__dotSelected
                     : {},
                 ]}
-                onPress={() => this.setState({ color: black.backgroundColor })}
+                onPress={() => this.setState({ bgColor: black.backgroundColor })} // 
               />
 
               <TouchableOpacity
@@ -63,7 +68,7 @@ export default class Start extends React.Component {
                     ? styles.colorSelect__dotSelected
                     : {},
                 ]}
-                onPress={() => this.setState({ color: gray.backgroundColor })}
+                onPress={() => this.setState({ bgColor: gray.backgroundColor })}
               />
 
               <TouchableOpacity
@@ -74,7 +79,7 @@ export default class Start extends React.Component {
                     ? styles.colorSelect__dotSelected
                     : {},
                 ]}
-                onPress={() => this.setState({ color: purple.backgroundColor })}
+                onPress={() => this.setState({ bgColor: purple.backgroundColor })}
               />
 
               <TouchableOpacity
@@ -85,7 +90,7 @@ export default class Start extends React.Component {
                     ? styles.colorSelect__dotSelected
                     : {},
                 ]}
-                onPress={() => this.setState({ color: green.backgroundColor })}
+                onPress={() => this.setState({ bgColor: green.backgroundColor })}
               />
             </View>
           </View>
@@ -94,7 +99,7 @@ export default class Start extends React.Component {
             onPress={() =>
               this.props.navigation.navigate("Chat", {
                 name: this.state.name || "no-name",
-                color: this.state.color || bgColors.gray.backgroundColor,
+                bgColor: this.state.bgColor || bgColors.gray.backgroundColor,
               })
             }
           >
