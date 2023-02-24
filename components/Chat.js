@@ -30,7 +30,7 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
-      uid: 0,
+      uid: undefined,
       user: {
         _id: '',
         avatar: '',
@@ -49,15 +49,14 @@ export default class Chat extends React.Component {
 
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(
       user => {
-        if (!user) {
-          firebase.auth().signInAnonymously();
-        }
+        if (!user) { firebase.auth().signInAnonymously(); }
         this.setState({
           uid: user.uid,
           messages: [],
           user: {
             _id: user.uid,
-            name: name,
+            avatar: user.avatar,
+            name: this.props.route.params.name,
           },
           loggedInText: '',
         });
@@ -89,8 +88,8 @@ export default class Chat extends React.Component {
         createdAt: data.createdAt.toDate(),
         user: {
           _id: data.user._id,
-          name: data.user.name,
           avatar: data.user.avatar || '',
+          name: data.user.name,
         }
       });
     });
@@ -102,13 +101,13 @@ export default class Chat extends React.Component {
   addMessage = () => {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
-      uid: this.state.uid,
       _id: message._id,
-      text: message.text || '',
       createdAt: message.createdAt,
-      user: message.user,
       image: message.image || null,
       location: message.location || null,
+      text: message.text || '',
+      uid: this.state.uid,
+      user: message.user,
     });
   };
 
@@ -149,7 +148,8 @@ export default class Chat extends React.Component {
           onSend={messages => this.onSend(messages)}
           user={{
             _id: this.state.user._id,
-            avatar: 'https://placeimg.com/140/140/any'
+            avatar: 'https://placeimg.com/140/140/any',
+            name: name
           }}
         />
         { Platform.OS === 'android' ?
