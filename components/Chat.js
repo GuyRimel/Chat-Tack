@@ -8,7 +8,6 @@ import {
   FlatList
 } from "react-native";
 import { Bubble, GiftedChat } from 'react-native-gifted-chat';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Google firebase / firestore
 const firebase = require('firebase');
@@ -44,20 +43,7 @@ export default class Chat extends React.Component {
     };
   }
 
-  async getMessages() {
-    let messages = '';
-    try {
-      messages = await AsyncStorage.getItem('messages') || [];
-      this.setState({
-        messages: JSON.parse(messages)
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   componentDidMount() {
-    this.getMessages();
     this.referenceChatMessages = firebase.firestore().collection("messages");
     this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onCollectionUpdate);
 
@@ -125,25 +111,6 @@ export default class Chat extends React.Component {
     });
   };
 
-  async saveMessages() {
-    try {
-      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  async deleteMessages() {
-    try {
-      await AsyncStorage.removeItem('messages');
-      this.setState({
-        messages: []
-      })
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
   onSend(messages = []) {
     // this.state.messages[] is previousState.messages PLUS the message passed to onSend()
     this.setState(previousState => ({
@@ -151,7 +118,7 @@ export default class Chat extends React.Component {
       }),
       () => {
         // callback: after saving state, add message
-        this.saveMessages();
+        this.addMessage(messages);
       }
     );
   }
