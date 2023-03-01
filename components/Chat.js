@@ -8,6 +8,8 @@ import {
   FlatList
 } from "react-native";
 import { Bubble, GiftedChat } from 'react-native-gifted-chat';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from '@react-native-community/netinfo';
 
 // Google firebase / firestore
 const firebase = require('firebase');
@@ -30,20 +32,34 @@ export default class Chat extends React.Component {
     super();
     this.state = {
       messages: [],
-      uid: undefined,
       user: {
         _id: '',
         avatar: '',
         name: '',
       },
       loggedInText: 'Please standby...',
-      image: null,
-      location: null,
       isConnected: false,
     };
   }
 
+  async getMessages() {
+    let messages = '';
+    try {
+      messages = await AsyncStorage.getItem('messages') || [];
+      this.setState({
+        messages: JSON.parse(messages)
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   componentDidMount() {
+    this.setState({
+      isConnected: NetInfo.fetch()
+        .then(connection => {connection.isConnected})
+    });
+    this.getMessages();
     this.referenceChatMessages = firebase.firestore().collection("messages");
     this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onCollectionUpdate);
 
@@ -51,10 +67,9 @@ export default class Chat extends React.Component {
       user => {
         if (!user) { firebase.auth().signInAnonymously(); }
         this.setState({
-          uid: user.uid,
           messages: [],
           user: {
-            _id: user.uid,
+            _id: user._id,
             avatar: user.avatar,
             name: this.props.route.params.name,
           },
@@ -106,10 +121,24 @@ export default class Chat extends React.Component {
       image: message.image || null,
       location: message.location || null,
       text: message.text || '',
-      uid: this.state.uid,
       user: message.user,
     });
   };
+
+  async saveMessages() {
+    try {
+      await AsyncStorage.setItem('messages', JSON.stringify(this.state.messages));
+    } catch (error) { console.log(error.message) };
+  }
+  
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem('messages');
+      this.setState({ messages: [] });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   onSend(messages = []) {
     // this.state.messages[] is previousState.messages PLUS the message passed to onSend()
@@ -118,7 +147,7 @@ export default class Chat extends React.Component {
       }),
       () => {
         // callback: after saving state, add message
-        this.addMessage(messages);
+        this.saveMessages();
       }
     );
   }
