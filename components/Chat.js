@@ -198,6 +198,7 @@ export default class Chat extends React.Component {
             user={{
               _id: this.state.uid,
               avatar: "https://placeimg.com/140/140/any",
+              name: this.state.user.name,
             }}
           />
         {Platform.OS === "android" ? (
