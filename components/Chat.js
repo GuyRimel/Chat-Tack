@@ -177,7 +177,7 @@ export default class Chat extends React.Component {
 
   //render the default InputToolbar only when the user is online
   renderInputToolbar(props) {
-    if (this.state.isConnected === false) {
+    if (this.state.isConnected === true) {
     } else {
       return <InputToolbar {...props} />;
     }
@@ -187,8 +187,7 @@ export default class Chat extends React.Component {
     // chat screen background color and top title is set to the bgColor and name passed from Start.js
     let bgColor = this.props.route.params.bgColor;
     let name = this.props.route.params.name;
-    let isConnected = this.state.isConnected ? " || online" : " || offline";
-    this.props.navigation.setOptions({ title: name + isConnected });
+    this.props.navigation.setOptions({ title: name });
     return (
       <View style={[styles.container, { backgroundColor: bgColor }]}>
         <GiftedChat
