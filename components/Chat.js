@@ -177,7 +177,7 @@ export default class Chat extends React.Component {
 
   //render the default InputToolbar only when the user is online
   renderInputToolbar(props) {
-    if (this.state.isConnected === true) {
+    if (this.state.isConnected === false) {
     } else {
       return <InputToolbar {...props} />;
     }
