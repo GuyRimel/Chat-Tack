@@ -33,10 +33,11 @@ export default class Chat extends React.Component {
     this.state = {
       uid: null,
       messages: [],
+      username: "",
       user: {
         _id: "",
         avatar: "",
-        name: "",
+        name: ""
       },
       loggedInText: "Please standby...",
       isConnected: false,
@@ -72,10 +73,10 @@ export default class Chat extends React.Component {
       this.setState({
         messages: [],
         uid: user?.uid,
+        username: this.props.route.params.name,
         user: {
           _id: user.uid,
           avatar: user.avatar,
-          name: this.props.route.params.name,
         },
         loggedInText: "",
       });
@@ -84,6 +85,13 @@ export default class Chat extends React.Component {
         .orderBy("createdAt", "desc")
         .onSnapshot(this.onCollectionUpdate);
     });
+    // chat screen top title is set to the name passed from Start.js
+    this.props.navigation.setOptions({ title: this.props.route.params.name });
+  }
+
+  componentDidUpdate() {
+    // chat screen top title is set to the name passed from Start.js
+    this.props.navigation.setOptions({ title: this.props.route.params.name });
   }
 
   // "unsubscribe" is to stop listening for changes from Firestore
@@ -183,22 +191,42 @@ export default class Chat extends React.Component {
     }
   }
 
+  renderCustomView (props) {
+    const { currentMessage} = props;
+    if (currentMessage.location) {
+      return (
+          <MapView
+            style={{width: 150,
+              height: 100,
+              borderRadius: 13,
+              margin: 3}}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+      );
+    }
+    return null;
+  }
+
   render() {
-    // chat screen background color and top title is set to the bgColor and name passed from Start.js
+    // chat screen background color is set to the bgColor passed from Start.js
     let bgColor = this.props.route.params.bgColor;
-    let name = this.props.route.params.name;
-    this.props.navigation.setOptions({ title: name });
     return (
       <View style={[styles.container, { backgroundColor: bgColor }]}>
         <GiftedChat
             renderBubble={this.renderBubble.bind(this)}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
+            renderActions={this.renderCustomActions}
             messages={this.state.messages}
             onSend={(messages) => this.onSend(messages)}
             user={{
               _id: this.state.uid,
-              avatar: "https://placeimg.com/140/140/any",
-              name: this.state.user.name,
+              avatar: "https://placekitten.com/140/140",
+              name: this.state.username,
             }}
           />
         {Platform.OS === "android" ? (

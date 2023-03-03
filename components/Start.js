@@ -39,8 +39,9 @@ export default class Start extends React.Component {
         <View style={[styles.nameInput__container, styles.columnEvenlyCenter]}>
           <TextInput
             style={styles.nameInput__input}
-            onChangeText={(name) => this.setState({ name })} // state.name is the user's input value
             value={this.state.name}
+            onChangeText={(name) => this.setState({ name })} // this.state.name is the user's input value
+            on
             placeholder="Enter your Name"
           />
 
