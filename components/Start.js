@@ -51,6 +51,10 @@ export default class Start extends React.Component {
             </Text>
             <View style={styles.colorSelect__dotsWrapper}>
               <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Select Background Color"
+              accessibilityHint="Set the background color of the chat screen."
+              accessibilityRole="button"
                 style={[
                   styles.colorSelect__dot,
                   black,
@@ -62,6 +66,10 @@ export default class Start extends React.Component {
               />
 
               <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Select Background Color"
+              accessibilityHint="Set the background color of the chat screen."
+              accessibilityRole="button"
                 style={[
                   styles.colorSelect__dot,
                   gray,
@@ -73,6 +81,10 @@ export default class Start extends React.Component {
               />
 
               <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Select Background Color"
+              accessibilityHint="Set the background color of the chat screen."
+              accessibilityRole="button"
                 style={[
                   styles.colorSelect__dot,
                   purple,
@@ -84,6 +96,10 @@ export default class Start extends React.Component {
               />
 
               <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Select Background Color"
+              accessibilityHint="Set the background color of the chat screen."
+              accessibilityRole="button"
                 style={[
                   styles.colorSelect__dot,
                   green,
@@ -96,6 +112,10 @@ export default class Start extends React.Component {
             </View>
           </View>
           <TouchableOpacity
+            accessible={true}
+            accessibilityLabel="Go to Chat Screen"
+            accessibilityHint="Accept name input and go to the Chat Screen."
+            accessibilityRole="button"
             style={styles.fauxButton}
             onPress={() =>
               this.props.navigation.navigate("Chat", {
