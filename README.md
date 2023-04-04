@@ -54,7 +54,7 @@
 
 <img
   alt="Primary Screenshot"
-  src="img/screenshots/screenshot00.png"
+  src="img/screenshots/screenshot00.jpg"
   style="height: 16rem; width: auto;"
 />
 
