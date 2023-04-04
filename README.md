@@ -10,7 +10,7 @@
   <h3 align="center">Chat Tack</h3>
 
   <p align="center">
-    Chat Tack is a fun, intuitive, and light-weight mobile chat app for both Androind and iOS which that allows users to chat, take and share images, and share their location in real time.
+    Chat Tack is a fun, intuitive, and light-weight mobile chat app for both Android and iOS which that allows users to chat, take and share images, and share their location in real time.
   </p>
   <p>
     It is a native and real-time application developed with Expo and React Native. 
