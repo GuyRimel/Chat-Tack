@@ -39,7 +39,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#quick-start">Quick Start</a></li>
-        <li><a href="#ux-notes">UX Notes</a></li>
+        <li><a href="#user-notes">User Notes</a></li>
       </ul>
     </li>
     <li><a href="#license">License</a></li>
@@ -128,29 +128,29 @@ Chat Tack is not currently deployed. It can be downloaded and installed locally 
 
 1. In the terminal, navigate to the desired directory and clone the repo.
 
-   ```sh
-  git clone https://github.com/GuyRimel/Chat-Tack.git
-   ```
+```sh
+git clone https://github.com/GuyRimel/Chat-Tack.git
+```
 
 2. Install Expo CLI globally:
 
-   ```sh
-  npm install expo-cli -g
-   ```
+```sh
+npm install expo-cli -g
+```
 
 3. Log in from the terminal with `expo login`
 
 4. Install Yarn globally:
 
-   ```sh
-  npm install yarn -g
-   ```
+```sh
+npm install yarn -g
+```
 
 5. With Yarn installed, install project dependencies:
 
-   ```sh
-  yarn
-   ```
+```sh
+yarn
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -162,9 +162,9 @@ After installation...
 
 2. Start the application from the terminal:
 
-   ```sh
-   yarn start
-   ```
+```sh
+yarn start
+```
 
 The app will then automatically open in a new browser window.
 
@@ -172,7 +172,7 @@ The app will then automatically open in a new browser window.
 
 <!-- UX NOTES -->
 
-## UX Notes
+## User Notes
 
 - You will be able to chat with instant messages, images, and even share your current GPS location.
 
